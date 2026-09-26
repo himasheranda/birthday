@@ -1,198 +1,748 @@
+```html
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="ie lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>    <html class="ie lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>    <html class="ie lt-ie9"> <![endif]-->
-<!--[if gt IE 8]> <html> <![endif]-->
-<!--[if !IE]><!--><html lang="en"><!-- <![endif]-->
+<html lang="si">
 <head>
-	<title>Happy Birthday</title>
-	<meta charset="UTF-8" />
-	<meta name="description" content="Happy Birthday Xola">
-	<meta name="robots" content="index, follow" />
-	<link rel="author" href="https://plus.google.com/u/1/+AyushSharma1/" /> 
-    <meta name="keywords" content="Birthday, Happy">
-    <!-- Strat of Facebook Meta -->
-    <meta property="og:type" content="E-Greeting" />
-    <meta property="og:image" content="favicon.ico" />
-    <meta property="og:description" content="Wish you a very Happy Birthday">
-    <!-- End of Facebook Meta Tags -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="stylesheet" type="text/css" href="loading.css">
-	<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
-	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'> -->
-	<link rel="stylesheet/less" href="cake.less">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.1.0/less.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy Birthday ❤️</title>
+
+<style>
+  * { 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #08050a;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* First screen */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 35%, #32132b 0%, #120914 42%, #050308 100%);
+    color: white;
+    padding: 20px;
+    transition: opacity .8s ease, visibility .8s ease;
+  }
+
+  .intro-box {
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .intro-title {
+    font-size: clamp(22px, 5.5vw, 36px);
+    font-weight: 800;
+    letter-spacing: .5px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 25px rgba(255, 120, 190, .45);
+    word-break: break-word;
+  }
+
+  .intro-sub {
+    font-size: clamp(13px, 3.2vw, 16px);
+    opacity: .85;
+    margin-bottom: 28px;
+    line-height: 1.45;
+  }
+
+  #readyBtn {
+    border: 0;
+    border-radius: 999px;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, #ff3d81, #ff7a3d);
+    box-shadow: 0 10px 30px rgba(255, 61, 129, .35);
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+    touch-action: manipulation;
+  }
+
+  #readyBtn:active, #readyBtn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(255, 61, 129, .5);
+  }
+
+  /* Countdown */
+  #countdown {
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #050308;
+  }
+
+  #countNumber {
+    font-size: min(25vw, 130px);
+    font-weight: 900;
+    line-height: 1;
+    text-shadow:
+      0 0 15px #ff4d9a,
+      0 0 45px rgba(255, 77, 154, .7);
+    animation: pop .9s ease both;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(.25); opacity: 0; }
+    35% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Final screen */
+  #surprise {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: none;
+    background: #000;
+    overflow: hidden;
+  }
+
+  #birthdayPhoto {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background: #000;
+    animation: photoIn 1.8s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  @keyframes photoIn {
+    from { opacity: 0; transform: scale(1.06); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom,
+        rgba(0,0,0,.35) 0%,
+        rgba(0,0,0,.2) 40%,
+        rgba(0,0,0,.65) 100%);
+  }
+
+  /* Message */
+  .message {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 480px;
+    height: 100%;
+    text-align: center;
+    color: white;
+    z-index: 3;
+    overflow: hidden;
+    padding: 0 12px;
+
+    text-shadow:
+      0 2px 8px rgba(0,0,0,0.95),
+      0 0 12px rgba(0,0,0,0.9),
+      0 0 18px rgba(255,72,143,0.75);
+
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 10%,
+      black 85%,
+      transparent 100%
+    );
+
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 10%,
+      black 85%,
+      transparent 100%
+    );
+  }
+
+  /*
+    FIX:
+    Text scroll eka 52/54 seconds idan
+    38 seconds walata reduce kala.
+    GPU acceleration add kala.
+  */
+  .message-track {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    padding: 0 5px;
+
+    animation: textScroll 38s linear 1.2s forwards;
+
+    transform: translate3d(0,0,0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  @keyframes textScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(0, -130%, 0);
+    }
+  }
+
+  .message h1 {
+    margin: 0 0 20px 0;
+    font-size: clamp(20px, 5.2vw, 30px);
+    line-height: 1.25;
+    font-weight: 900;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .message p {
+    margin: 0 auto 16px auto;
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(13px, 3.6vw, 16px);
+    line-height: 1.45;
+    font-weight: 700;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    letter-spacing: 0.2px;
+  }
+
+  .message .ending {
+    margin-top: 24px;
+    margin-bottom: 140px;
+    font-size: clamp(15px, 4.2vw, 22px);
+    font-weight: 900;
+    color: #ff85b3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Falling petals */
+  #petals {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    overflow: hidden;
+    contain: layout paint;
+  }
+
+  .petal {
+    position: absolute;
+    top: -40px;
+
+    width: 12px;
+    height: 18px;
+
+    border-radius: 70% 30% 70% 30%;
+
+    background: radial-gradient(
+      circle at 35% 30%,
+      #fff 0 8%,
+      #ff9cc4 20%,
+      #ff4f91 65%,
+      #d91f69 100%
+    );
+
+    opacity: .9;
+
+    filter: drop-shadow(
+      0 2px 3px rgba(255, 50, 130, .4)
+    );
+
+    /*
+      GPU acceleration.
+      Me nisa phone eke falling animation
+      eka smooth wenawa.
+    */
+    will-change: transform, opacity;
+    transform: translate3d(0,-40px,0);
+    backface-visibility: hidden;
+
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    0% {
+      transform:
+        translate3d(0, -50px, 0)
+        rotate(0deg);
+      opacity: 0;
+    }
+
+    10% {
+      opacity: .95;
+    }
+
+    50% {
+      transform:
+        translate3d(var(--drift), 55vh, 0)
+        rotate(220deg);
+    }
+
+    100% {
+      transform:
+        translate3d(calc(var(--drift) * -0.7), 115vh, 0)
+        rotate(520deg);
+      opacity: 0;
+    }
+  }
+
+  /* Replay */
+  #replay {
+    position: absolute;
+    z-index: 6;
+    right: 14px;
+    top: 14px;
+    border: 1px solid rgba(255,255,255,.45);
+    background: rgba(0,0,0,.45);
+    color: white;
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .5s ease, transform .2s ease;
+    touch-action: manipulation;
+  }
+
+  #surprise.showReplay #replay {
+    opacity: 1;
+  }
+
+  #replay:active {
+    transform: scale(0.95);
+  }
+
+  /* Phone optimization */
+  @media (max-width: 480px) {
+
+    #birthdayPhoto {
+      object-fit: cover;
+    }
+
+    .message {
+      width: 92%;
+      padding: 0 4px;
+    }
+
+    .message p {
+      font-size: 13px;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .message h1 {
+      font-size: 21px;
+      margin-bottom: 16px;
+    }
+
+    /*
+      Phone eke text eka slow wenne nathi wenna
+    */
+    .message-track {
+      animation-duration: 38s;
+    }
+
+    /*
+      Phone eke petals count eka adui.
+      E nisa lag adui.
+    */
+    .petal {
+      filter: none;
+    }
+  }
+</style>
 </head>
 
 <body>
-	<div class="loading"></div>
-	<audio class="song" controls loop>
-        <source src="hbd.mp3"></source>
-	   Your browser isn't invited for super fun audio time.
-    </audio>
-    <div class="balloons text-center" id="b1">
-    	<h2 style="color:#F2B300;">H</h2>
-    </div>
-    <div class="balloons text-center" id="b2">
-    	<h2 style="color:#0719D4;">B</h2>
-    </div>
-	<div class="balloons text-center" id="b3">
-    	<h2 style="color:#D14D39;">D</h2>
-    </div>
-	<div class="balloons text-center" id="b4">
-    	<h2 style="color:#8FAD00;">X</h2>
-    </div>
-	<div class="balloons text-center" id="b5">
-    	<h2 style="color:#8377E4;">O</h2>
-    </div>
-    <div class="balloons text-center" id="b6">
-    	<h2 style="color:#99C96A;">L</h2>
-    </div>
-    <div class="balloons text-center" id="b7">
-    	<h2 style="color:#20CFB4;">A</h2>
+
+<audio id="bgAudio" src="videoplayback.webm" preload="auto"></audio>
+
+<section id="intro">
+  <div class="intro-box">
+
+    <div class="intro-title">
+      🎂 Ready da? ❤️
     </div>
 
-    <img src="Balloon-Border.png" width="100%" class="balloon-border">
- 
+    <div class="intro-sub">
+      ලෑස්තිද? 🥹
+    </div>
 
-	<div class="container">
-		
-		<div class="row">
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_yellow"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_red"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_blue"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_green"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_pink"></div>
-			</div>
-			<div class="col-md-2 col-xs-2 bulb-holder">
-				<div class="bulb" id="bulb_orange"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 text-center">
-				<img src="banner.png" class="bannar">
-			</div>
-		</div>
-		<div class="row cake-cover">
-			<div class="col-md-12 texr-center">
-				<div class="cake">
-				  <div class="velas">
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				    <div class="fuego"></div>
-				  </div>
-				  <div class="cobertura"></div>
-				  <div class="bizcocho"></div>
-				</div>
-			</div>
-		</div>
-		<div class="row message">
-			<div class="col-md-12">
-				<p>Today is...</p>
-				<p>as beautiful as other days</p>
-				<p>but you realize</p>
-				<p>another year has gone</p>
-				<p>in a blink of the eyes</p>
-				<p><strong>however</strong></p>
-				<p>Do you know..?</p>
-				<p>today is just special</p>
-				<p>so special to you</p>
-				<p>that's why</p>
-				<p>Let's make it...</p>
-				<p>the best celebration ever</p>
-				<p>and let me share...</p>
-				<p>a piece of happiness to you</p>
-				<p>I made all this...</p>
-				<p>as a birthday present to you</p>
-				<p>thanks for being there</p>
-				<p>thanks for the friendship we made</p>
-				<p>thanks for everything</p>
-				<p>I wish you all the best</p>
-				<p>May your life be at ease</p>
-				<p>May all your wishes come true</p>
-				<p>Remember</p>
-				<p>your ambitions</p>
-				<p>you live as a free bird...</p>
-				<p>flying in the blue sky</p>
-				<p>Now things are different...</p>
-				<p>real story of your life</p>
-				<p>is just about to begin</p>
-				<p>indeed..</p>
-				<p>but...</p>
-				<p>don't worry</p>
-				<p>because...</p>
-				<p>God has your back</p>
-				<p>and</p>
-				<p>this year will be better</p>
-				<p>and I hope</p>
-				<p>you'll find...</p>
-				<p>happiness along the way</p>
-				<p>keep your spirit up</p>
-				<p>enjoy every single moment...</p>
-				<p>that you experience today</p>
-				<p>fill it with your most beautiful smile</p>
-				<p>and make it the best memory..</p>
-				<p>lastly...</p>
-				<p>I'd like to wish you one more time</p>
-				<p>a very happy birthday Xola Mathembisa</p>
-			</div>
-		</div>
-		<div class="navbar navbar-fixed-bottom">
-			<div class="row">
-				<div class="col-md-6 text-center col-md-offset-3">
-					<button class="btn btn-primary" id="turn_on">Turn On Lights</button>
-					<button class="btn btn-primary" id="play">Play Music</button>
-					<button class="btn btn-primary" id="bannar_coming">Let's Decorate</button>
-					<button class="btn btn-primary" id="balloons_flying">Fly With Balloons</button>
-					<button class="btn btn-primary" id="cake_fadein">Most Delicious Cake Ever</button>
-					<button class="btn btn-primary" id="light_candle"> Light Candle</button>
-					<button class="btn btn-primary" id="wish_message">Happy Birthday</button>
-					<button class="btn btn-primary" id="story">A mesage for you</button>
-					<!-- <button class="btn btn-primary" id="cake_cut">Lrt's Cut the Cake</button> -->
-				</div>
-			</div>
-			<!-- <div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-			</div> -->
-		</div>
+    <button id="readyBtn">
+      ඔව් ❤️
+    </button>
 
+  </div>
+</section>
 
-	</div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="effect.js"></script>
+<section id="countdown">
+  <div id="countNumber">
+    3
+  </div>
+</section>
+
+<section id="surprise">
+
+  <img
+    id="birthdayPhoto"
+    src="image.png"
+    alt="Birthday photo"
+    onerror="this.src='https://placehold.co/800x1200/120914/ff4d9a?text=Happy+Birthday+%E2%9D%A4'"
+  >
+
+  <div class="shade"></div>
+
+  <div id="petals"></div>
+
+  <div class="message">
+
+    <div class="message-track">
+
+      <h1>
+        Happy Birthday ❤️
+      </h1>
+
+      <p>
+        man mge mnikata<br>adrei gdk
+      </p>
+
+      <p>
+        mg epanatth wda
+      </p>
+
+      <p>
+        mge hema dektm<br>inne oya withri betto
+      </p>
+
+      <p>
+        oyta thiyana adre<br>kiykla nimaknna be
+      </p>
+
+      <p>
+        oya nethuwa mata<br>akwdawth inna be
+      </p>
+
+      <p>
+        e tharm mn oyt adrei
+      </p>
+
+      <p>
+        mnika wge kenk<br>mt hmbuna nisa
+      </p>
+
+      <p>
+        mata kisima duk denan ne
+      </p>
+
+      <p>
+        mokada manika<br>mage llagin inna nisa
+      </p>
+
+      <p>
+        mge mnikata mn<br>panatth wda adrei
+      </p>
+
+      <p>
+        mata hema dekatama wda<br>wtinne oywa thami
+      </p>
+
+      <p>
+        oya nethi unath mn merei
+      </p>
+
+      <p>
+        e thrm mn adreio
+      </p>
+
+      <p>
+        mge, panatth wda
+      </p>
+
+      <p>
+        me birthday eka wge
+      </p>
+
+      <p>
+        thwa merenknma ape<br>birthday samrumu mhm
+      </p>
+
+      <p>
+        mn ona welwka inn<br>betta lga oy eka dnnw ne betto
+      </p>
+
+      <p>
+        mn jivithe lebunu<br>lokuma thegga oya
+      </p>
+
+      <p>
+        hema dekadima mage lagin<br>oya innwa eka nisa mn sathutin inne
+      </p>
+
+      <p>
+        oya nisa oyata hitha gnnawath be
+      </p>
+
+      <p>
+        mn kochchr adrei da kiyla<br>oyata poddk wath terun gnnwath be
+      </p>
+
+      <p>
+        oy ahithanwata wdamn<br>oyt gdk adrei
+      </p>
+
+      <p>
+        obata thiyna adre<br>daragnna be
+      </p>
+
+      <p>
+        merunath obe thurulee
+      </p>
+
+      <p class="ending">
+        mat aethi sansareee ❤️🌸
+      </p>
+
+    </div>
+
+  </div>
+
+  <button id="replay">
+    ↻ Replay
+  </button>
+
+</section>
+
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-58229732-1', 'auto');
-  ga('send', 'pageview');
+  const intro = document.getElementById("intro");
+  const countdown = document.getElementById("countdown");
+  const countNumber = document.getElementById("countNumber");
+  const surprise = document.getElementById("surprise");
+  const readyBtn = document.getElementById("readyBtn");
+  const replay = document.getElementById("replay");
+  const petals = document.getElementById("petals");
+  const bgAudio = document.getElementById("bgAudio");
+
+  let timer;
+  let petalInterval;
+
+  function startSurprise() {
+
+    if (bgAudio) {
+      bgAudio.currentTime = 0;
+
+      bgAudio.play().catch(e =>
+        console.log("Audio play error:", e)
+      );
+    }
+
+    clearTimeout(timer);
+
+    intro.style.opacity = "0";
+    intro.style.visibility = "hidden";
+
+    countdown.style.display = "flex";
+
+    const nums = ["3", "2", "1"];
+
+    let i = 0;
+
+    function showNumber() {
+
+      countNumber.textContent = nums[i];
+
+      countNumber.style.animation = "none";
+
+      void countNumber.offsetWidth;
+
+      countNumber.style.animation =
+        "pop .9s ease both";
+
+      if (i < nums.length - 1) {
+
+        i++;
+
+        timer = setTimeout(showNumber, 1000);
+
+      } else {
+
+        timer = setTimeout(() => {
+
+          countdown.style.display = "none";
+
+          surprise.style.display = "block";
+
+          surprise.classList.add("showReplay");
+
+          startPetals();
+
+        }, 1050);
+      }
+    }
+
+    showNumber();
+  }
+
+
+  function startPetals() {
+
+    petals.innerHTML = "";
+
+    clearInterval(petalInterval);
+
+    /*
+      Initial petals.
+      Kalin 40.
+      Dan 25 witharai.
+      Phone performance eka smooth.
+    */
+    for (let i = 0; i < 25; i++) {
+      createPetal(i * 100);
+    }
+
+    /*
+      Every 700ms new petals 2.
+      Kalin 500ms.
+      Eken overload eka adu.
+    */
+    petalInterval = setInterval(() => {
+
+      createPetal(0);
+      createPetal(180);
+
+    }, 700);
+  }
+
+
+  function createPetal(delay) {
+
+    const p = document.createElement("span");
+
+    p.className = "petal";
+
+    const size =
+      8 + Math.random() * 10;
+
+    p.style.width =
+      size + "px";
+
+    p.style.height =
+      size * (1.25 + Math.random() * .45) + "px";
+
+    p.style.left =
+      Math.random() * 100 + "%";
+
+    p.style.setProperty(
+      "--drift",
+      (-80 + Math.random() * 160) + "px"
+    );
+
+    /*
+      Falling speed.
+      5 - 8 seconds.
+    */
+    p.style.animationDuration =
+      (5 + Math.random() * 3) + "s";
+
+    p.style.animationDelay =
+      delay + "ms";
+
+    p.style.transform =
+      `rotate(${Math.random() * 360}deg)`;
+
+    petals.appendChild(p);
+
+    setTimeout(() => {
+
+      if (p.parentNode) {
+        p.remove();
+      }
+
+    }, delay + 8500);
+  }
+
+
+  function reset() {
+
+    clearTimeout(timer);
+
+    clearInterval(petalInterval);
+
+    if (bgAudio) {
+
+      bgAudio.pause();
+
+      bgAudio.currentTime = 0;
+    }
+
+    surprise.style.display = "none";
+
+    surprise.classList.remove("showReplay");
+
+    countdown.style.display = "none";
+
+    intro.style.visibility = "visible";
+
+    intro.style.opacity = "1";
+
+    petals.innerHTML = "";
+  }
+
+
+  readyBtn.addEventListener(
+    "click",
+    startSurprise
+  );
+
+  replay.addEventListener(
+    "click",
+    reset
+  );
 
 </script>
+
+</body>
 </html>
+```
